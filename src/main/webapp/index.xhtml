@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    
+    <h:head>
+        <title>Usuario</title>
+    </h:head>
+    <h:body>
+
+        <f:view>
+            <h:form id="tabla">
+                
+                <h1 align="center"><h:outputText value="Usuarios"/></h1>
+                
+                <p:dataTable value="#{frmUsuario.listaDatos}" var="u" paginator="true" rows="5" selectionMode="single" selection="#{frmUsuario.usuarioEntity}" rowKey="#{u.idUsuario}" >
+                    <p:ajax event="rowSelect" listener="#{frmUsuario.onRowSelect}" update=":formulario"/>
+                    <p:column sortBy="#{u.idUsuario}">
+                        <f:facet name="header">
+                            <h:outputText value="ID USUARIO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idUsuario}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="APELLIDOS"/>
+                        </f:facet>
+                        <h:outputText value="#{u.apellidos}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="NOMBRES"/>
+                        </f:facet>
+                        <h:outputText value="#{u.nombres}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="FECHANACIMIENTO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.fechaNacimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ACTIVO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.activo}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="COMENTARIOS"/>
+                        </f:facet>
+                        <h:outputText value="#{u.comentarios}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="USERNAME"/>
+                        </f:facet>
+                        <h:outputText value="#{u.username}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="PASSWORD"/>
+                        </f:facet>
+                        <h:outputText value="#{u.password}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </f:view>
+        
+        <f:view>
+            <h:form id="formulario" >
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                        
+                <ez:btn1 back="#{frmUsuario}"/>
+                
+                    <p:panelGrid columns="2" rendered="#{frmUsuario.formulario}">
+                        <p:outputLabel value="Nombres:" for="nombres" />
+                        <p:inputText id="nombres" value="#{frmUsuario.usuarioEntity.nombres}" title="Nombres" required="true" requiredMessage="Los nombres son requeridos."/>
+                        <p:outputLabel value="Apellidos:" for="apellidos" />
+                        <p:inputText id="apellidos" value="#{frmUsuario.usuarioEntity.apellidos}" title="Apellidos" required="true" requiredMessage="Los apellidos son requeridos."/>
+                        <p:outputLabel value="FechaNacimiento:" for="fechaNacimiento" />
+                        <p:inputMask  id="fechaNacimiento" value="#{frmUsuario.usuarioEntity.fechaNacimiento}" required="true" mask="9999-99-99" requiredMessage="Fecha de nacimiento es requerida.">
+                            <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                        </p:inputMask>
+                        <p:outputLabel value="Activo:" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{frmUsuario.usuarioEntity.activo}" />
+                        <p:outputLabel value="Comentarios:" for="comentarios" />
+                        <p:inputText id="comentarios" value="#{frmUsuario.usuarioEntity.comentarios}" title="Comentarios" />
+                        <p:outputLabel value="Username:" for="username" />
+                        <p:inputText id="username" value="#{frmUsuario.usuarioEntity.username}" title="Username" required="true" requiredMessage="El nombre de usuario es requerido."/>
+                        <p:outputLabel value="Password:" for="password" />
+                        <p:inputText id="password" value="#{frmUsuario.usuarioEntity.password}" title="Password" required="true" requiredMessage="La contrase;a es requerida."/>
+                    </p:panelGrid> 
+                
+                <ez:btn2 back2="#{frmUsuario}"/>
+                
+            </h:form>
+        </f:view>
+        <br/>
+        <p align="left" style="size: 10px">Todos los Derechos Reservados 2017</p>
+        
+    </h:body>
+</html>
+
+
